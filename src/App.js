@@ -27,7 +27,7 @@ function App() {
             {/* pizza block */}
             {
               pizzas.map((obj) => (
-                <PizzaBlock {...obj}/>
+                <PizzaBlock key={obj.id} {...obj}/>
               ))
             }
           </div>
