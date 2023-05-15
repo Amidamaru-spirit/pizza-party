@@ -8,6 +8,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 730px) {
+      flex-direction: column;
+
+      .header-cart {
+        margin-bottom: 20px;
+      }
+    }
   }
 
   &__logo {
