@@ -1,0 +1,72 @@
+{
+  "window.zoomLevel": 1,
+  "editor.snippetSuggestions": "top",
+
+	// Настройки Prettier
+  "prettier.tabWidth": 2,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "prettier.semi": true,
+  "prettier.jsxBracketSameLine": true,
+  "prettier.printWidth": 100,
+
+	// Настройки ESLint
+  "eslint.packageManager": "yarn",
+  "eslint.format.enable": true,
+  "eslint.alwaysShowStatus": true,
+	"editor.formatOnSave": true,
+
+  "emmet.triggerExpansionOnTab": true,
+
+  "editor.tabSize": 2,
+  "editor.fontSize": 18,
+  "editor.lineHeight": 28,
+  "editor.wordWrap": "off",
+  "editor.renderWhitespace": "selection",
+  "editor.minimap.enabled": false,
+  "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+	// Если шрифт поддерживает стрелочки и т.п. знаки, то включить их (лигатуры)
+	"editor.fontLigatures": true,
+  // Тип курсора
+	"editor.cursorStyle": "line",
+	// Тип анимации курсора
+  "editor.cursorBlinking": "phase",
+	// Плавная анимация
+  "editor.cursorSmoothCaretAnimation": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+
+  "workbench.colorTheme": "Mokka",
+  "workbench.sideBar.location": "right",
+  "workbench.iconTheme": "vscode-icons",
+
+  "terminal.integrated.rendererType": "dom",
+  "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "underline",
+  "terminal.integrated.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.lineHeight": 1.2,
+
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+  "gitlens.advanced.messages": {
+    "suppressShowKeyBindingsNotice": true
+  },
+
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "explorer.confirmDragAndDrop": false,
+  "html.format.endWithNewline": true,
+  "files.associations": {
+    "*.tpl": "html",
+    "*.svelte": "html"
+  },
+
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.detectIndentation": false,
+  "workbench.colorCustomizations": {},
+  "workbench.startupEditor": "welcomePage",
+  "breadcrumbs.enabled": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+}
