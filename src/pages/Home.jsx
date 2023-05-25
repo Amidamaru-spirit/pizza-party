@@ -1,4 +1,7 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { setCategoryId } from '../redux/slices/filterSlice';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -9,24 +12,27 @@ import Pagination from '../components/Pagination';
 import { SearchContext } from '../App';
 
 function Home() {
+	const dispatch = useDispatch();
+	const { categoryId, sort } = useSelector((state) => state.filter);
+
 	const { searchValue } = React.useContext(SearchContext);
 
 	const [items, setItems] = React.useState([]);
 	const [isLoading, setIsLoading] = React.useState(true);
-	const [categoryId, setCategoryId] = React.useState(0);
+	// const [categoryId, setCategoryId] = React.useState(0);
 	const [currentPage, setCurrentPage] = React.useState(1);
-	const [sortType, setSortType] = React.useState({
-		name: 'популярности',
-		sortType: 'rating',
-	});
+
+	const onChangeCategory = (id) => {
+		dispatch(setCategoryId(id));
+	};
 
 	//первый рендер пицц
 	//добавили сортировки и выбор категории в запросе
 	React.useEffect(() => {
 		setIsLoading(true);
 
-		const sortBy = sortType.sortProperty;
-		const order = sortType.name.includes('по убыв.') ? 'desc' : 'asc';
+		const sortBy = sort.sortProperty.replace('-', '');
+		const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
 		const category = categoryId > 0 ? `category=${categoryId}` : '';
 		const search = searchValue ? `&search=${searchValue}` : '';
 		fetch(
@@ -38,7 +44,7 @@ function Home() {
 				setIsLoading(false);
 			});
 		window.scrollTo(0, 0);
-	}, [categoryId, sortType, searchValue, currentPage]);
+	}, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
 	const pizzas = items
 		.filter((obj) => {
@@ -55,9 +61,9 @@ function Home() {
 		<div className="container">
 			<div className="content__top">
 				{/* категории */}
-				<Categories value={categoryId} onChangeCategory={(index) => setCategoryId(index)} />
+				<Categories value={categoryId} onChangeCategory={onChangeCategory} />
 				{/* сортировка */}
-				<Sort value={sortType} onChangeSort={(index) => setSortType(index)} />
+				<Sort />
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			<div className="content__items">
