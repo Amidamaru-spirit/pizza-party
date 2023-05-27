@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -11,19 +10,26 @@ import Pagination from '../components/Pagination';
 
 import { SearchContext } from '../App';
 
+import axios from 'axios';
+
 function Home() {
 	const dispatch = useDispatch();
-	const { categoryId, sort } = useSelector((state) => state.filter);
+	const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
 
 	const { searchValue } = React.useContext(SearchContext);
 
 	const [items, setItems] = React.useState([]);
 	const [isLoading, setIsLoading] = React.useState(true);
+	//убрал стейты заменив все на редакс тулкит
 	// const [categoryId, setCategoryId] = React.useState(0);
-	const [currentPage, setCurrentPage] = React.useState(1);
+	// const [currentPage, setCurrentPage] = React.useState(1);
 
 	const onChangeCategory = (id) => {
 		dispatch(setCategoryId(id));
+	};
+
+	const onChangePage = (number) => {
+		dispatch(setCurrentPage(number));
 	};
 
 	//первый рендер пицц
@@ -35,12 +41,20 @@ function Home() {
 		const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
 		const category = categoryId > 0 ? `category=${categoryId}` : '';
 		const search = searchValue ? `&search=${searchValue}` : '';
-		fetch(
-			`https://64514a17a3221969116010b4.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
-		)
-			.then((res) => res.json())
-			.then((arr) => {
-				setItems(arr);
+
+		// fetch(
+		// )
+		// 	.then((res) => res.json())
+		// 	.then((arr) => {
+		// 		setItems(arr);
+		// 		setIsLoading(false);
+		// 	});
+		axios
+			.get(
+				`https://64514a17a3221969116010b4.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
+			)
+			.then((res) => {
+				setItems(res.data);
 				setIsLoading(false);
 			});
 		window.scrollTo(0, 0);
@@ -71,7 +85,7 @@ function Home() {
 				{/*добавляем рендер скелетонов во время загрузки страницы с фейковым массивом из шести скелетонов */}
 				{isLoading ? skeletons : pizzas}
 			</div>
-			<Pagination onChangePage={(number) => setCurrentPage(number)} />
+			<Pagination currentPage={currentPage} onChangePage={onChangePage} />
 		</div>
 	);
 }
